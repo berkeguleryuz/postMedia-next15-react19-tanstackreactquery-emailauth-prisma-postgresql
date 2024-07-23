@@ -10,3 +10,12 @@ export const signUpSchema = z.object({
   ),
   password: requiredString.min(8, "Password must be at least 8 characters"),
 });
+
+export type SignUpValues = z.infer<typeof signUpSchema>;
+
+export const loginSchema = z.object({
+  username: requiredString,
+  password: requiredString,
+});
+
+export type LoginValues = z.infer<typeof loginSchema>;
