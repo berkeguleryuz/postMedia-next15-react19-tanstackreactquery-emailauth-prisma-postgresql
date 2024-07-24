@@ -11,7 +11,9 @@ export default async function Layout({
 }) {
   const session = await validateRequest();
 
-  if (!session.user) redirect("/");
+  if (!session.user) {
+    redirect("/login");
+  }
 
   return (
     <div className="flex min-h-screen flex-col">
