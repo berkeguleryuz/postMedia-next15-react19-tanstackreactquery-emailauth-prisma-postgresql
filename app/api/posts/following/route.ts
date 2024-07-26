@@ -8,6 +8,7 @@ export async function GET(req: NextRequest) {
     const cursor = req.nextUrl.searchParams.get("cursor") || undefined;
 
     const pageSize = 10;
+
     const { user } = await validateRequest();
 
     if (!user) {
@@ -36,9 +37,10 @@ export async function GET(req: NextRequest) {
       posts: posts.slice(0, pageSize),
       nextCursor,
     };
-    return Response.json(data, { status: 200 });
+
+    return Response.json(data);
   } catch (error) {
-    console.log(error);
-    return Response.json({ error: "Internal Server Error" }, { status: 500 });
+    console.error(error);
+    return Response.json({ error: "Internal server error" }, { status: 500 });
   }
 }
