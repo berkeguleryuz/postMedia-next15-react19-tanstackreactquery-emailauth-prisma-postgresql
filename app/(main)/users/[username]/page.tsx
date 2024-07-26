@@ -13,6 +13,7 @@ import { notFound } from "next/navigation";
 import React, { cache } from "react";
 import UserPosts from "./UserPosts";
 import Linkify from "@/components/Linkify";
+import EditProfileButton from "./EditProfileButton";
 
 interface UserPageProps {
   params: { username: string };
@@ -92,14 +93,14 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
   };
 
   return (
-    <div className="h-fit w-full space-y-5 rounded-2xl bg-card-foreground p-5 shadow-sm">
+    <div className="h-fit w-full space-y-2 rounded-2xl bg-card-foreground p-5 shadow-sm">
       <UserAvatar
         avatarUrl={user.avatarUrl}
         size={250}
         className="mx-auto size-full max-h-60 max-w-60 rounded-full"
       />
       <div className="flex flex-wrap gap-3 text-muted sm:flex-nowrap">
-        <div className="me-auto space-y-3">
+        <div className="me-auto space-y-">
           <div>
             <h1 className="text-3xl font-bold">{user.displayName}</h1>
             <div className="text-sm text-input">@{user.username}</div>
@@ -116,16 +117,16 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
           </div>
         </div>
         {user.id === loggedInUserId ? (
-          <Button>Edit profile</Button>
+          <EditProfileButton user={user} />
         ) : (
           <FollowButton userId={user.id} initialState={followerInfo} />
         )}
       </div>
       {user.bio && (
-        <div className="overflow-hidden whitespace-pre-line break-words">
+        <div className="overflow-hidden whitespace-pre-line text-input break-words">
           <hr />
           <Linkify>
-            <div>{user.bio}</div>
+            <div className="mt-2">{user.bio}</div>
           </Linkify>
         </div>
       )}
