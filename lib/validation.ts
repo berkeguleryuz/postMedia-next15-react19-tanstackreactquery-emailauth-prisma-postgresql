@@ -22,6 +22,7 @@ export type LoginValues = z.infer<typeof loginSchema>;
 
 export const createPostSchema = z.object({
   content: requiredString,
+  mediaIds: z.array(z.string()).max(5, "Max 5 media per post"),
 });
 
 export const updateUserProfileSchema = z.object({
