@@ -15,6 +15,7 @@ import useMediaUpload, { Attachment } from "./useMediaUpload";
 import { ImageIcon, Loader2, X, XIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { useDropzone } from "@uploadthing/react";
 
 const PostEditor = () => {
   const { user } = useSession();
@@ -29,6 +30,10 @@ const PostEditor = () => {
     removeAttachment,
     reset: resetMediaUploads,
   } = useMediaUpload();
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop: startUpload,
+  });
 
   const editor = useEditor({
     extensions: [

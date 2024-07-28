@@ -53,6 +53,9 @@ const Post = ({ post }: PostProps) => {
       <Linkify>
         <div className="whitespace-pre-line break-words">{post.content}</div>
       </Linkify>
+      {!!post.attachments.length && (
+        <MediaPreviews attachments={post.attachments} />
+      )}
     </article>
   );
 };
@@ -106,4 +109,6 @@ function MediaPreview({ media }: MediaPreviewProps) {
       </div>
     );
   }
+
+  return <p className="text-destructive">Unsupported media type</p>;
 }
