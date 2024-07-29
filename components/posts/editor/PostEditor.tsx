@@ -31,7 +31,7 @@ const PostEditor = () => {
     reset: resetMediaUploads,
   } = useMediaUpload();
 
-  const { getRootProps, getInputProps } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: startUpload,
   });
 
