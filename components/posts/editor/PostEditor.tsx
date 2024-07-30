@@ -35,6 +35,8 @@ const PostEditor = () => {
     onDrop: startUpload,
   });
 
+  const { onClick, ...rootProps } = getRootProps();
+
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -71,11 +73,17 @@ const PostEditor = () => {
     <div className="flex flex-col gap-5 rounded-2xl bg-card-foreground p-5 text-background shadow-sm">
       <div className="flex gap-5">
         <UserAvatar avatarUrl={user.avatarUrl} className="hidden sm:inline" />
-        <EditorContent
-          editor={editor}
-          className="max-h-[20rem] w-full overflow-y-auto rounded-sm bg-card-foreground px-5 py-3 text-background ring-1 ring-muted-foreground"
-          placeholder="What's on your mind?"
-        />
+        <div {...rootProps} className="w-full">
+          <EditorContent
+            editor={editor}
+            className={cn(
+              "max-h-[20rem] w-full overflow-y-auto rounded-sm bg-card-foreground px-5 py-3 text-background ring-1 ring-muted-foreground",
+              isDragActive && "outline-dashed",
+            )}
+            placeholder="What's on your mind?"
+          />
+          <input {...getInputProps()} />
+        </div>
       </div>
       {!!attachments.length && (
         <AttachmentPreviews
