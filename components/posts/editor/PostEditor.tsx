@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { ClipboardEvent, useRef } from "react";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
@@ -69,6 +69,14 @@ const PostEditor = () => {
     );
   }
 
+  function onPaste(e: ClipboardEvent<HTMLInputElement>) {
+    const files = Array.from(e.clipboardData.items)
+      .filter((item) => item.kind === "file")
+      .map((item) => item.getAsFile()) as File[];
+
+    startUpload(files);
+  }
+
   return (
     <div className="flex flex-col gap-5 rounded-2xl bg-card-foreground p-5 text-background shadow-sm">
       <div className="flex gap-5">
@@ -81,6 +89,7 @@ const PostEditor = () => {
               isDragActive && "outline-dashed",
             )}
             placeholder="What's on your mind?"
+            onPaste={onPaste}
           />
           <input {...getInputProps()} />
         </div>
