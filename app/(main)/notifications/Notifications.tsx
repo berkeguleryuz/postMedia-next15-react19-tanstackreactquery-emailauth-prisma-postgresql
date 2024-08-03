@@ -5,9 +5,13 @@ import Post from "@/components/posts/Post";
 import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
 import kyInstance from "@/lib/ky";
 import { NotificationsPage, PostsPage } from "@/lib/types";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 import Notification from "./Notification";
 
 const Notifications = () => {
@@ -30,6 +34,24 @@ const Notifications = () => {
     initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
   });
+
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: () => kyInstance.patch("/api/notifications/mark-as-read"),
+    onSuccess: () => {
+      queryClient.setQueryData(["unread-notification-count"], {
+        unreadCount: 0,
+      });
+    },
+    onError(error) {
+      console.error("Failed to mark notifications as read:", error);
+    },
+  });
+
+  useEffect(() => {
+    mutate();
+  }, [mutate]);
 
   const notifications = data?.pages.flatMap((page) => page.notifications) || [];
 
