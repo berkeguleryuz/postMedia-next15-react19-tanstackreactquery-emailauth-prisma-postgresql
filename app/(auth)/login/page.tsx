@@ -3,6 +3,7 @@ import React from "react";
 import LoginForm from "./LoginForm";
 import Link from "next/link";
 import Image from "next/image";
+import GoogleSignInButton from "@/app/(auth)/login/google/GoogleSignInButton";
 
 export const metadata: Metadata = {
   title: "Login",
@@ -17,6 +18,12 @@ const LoginPage = () => {
             Login to Clodron Social
           </h1>
           <div className="space-y-5">
+            <GoogleSignInButton />
+            <div className="flex items-center gap-3">
+              <div className="h-px flex-1 bg-muted" />
+              <span>OR</span>
+              <div className="h-px flex-1 bg-muted" />
+            </div>
             <LoginForm />
             <Link
               href={"/signup"}

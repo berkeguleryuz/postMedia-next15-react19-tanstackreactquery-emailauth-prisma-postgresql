@@ -4,7 +4,6 @@ import React, { ClipboardEvent, useRef } from "react";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
-import { submitPost } from "./actions";
 import UserAvatar from "@/components/UserAvatar";
 import { useSession } from "@/app/(main)/SessionProvider";
 import { Button } from "@/components/ui/button";
@@ -47,6 +46,7 @@ const PostEditor = () => {
         placeholder: "What's on your mind?",
       }),
     ],
+    immediatelyRender: false,
   });
 
   const input =
@@ -83,6 +83,7 @@ const PostEditor = () => {
         <UserAvatar avatarUrl={user.avatarUrl} className="hidden sm:inline" />
         <div {...rootProps} className="w-full">
           <EditorContent
+          
             editor={editor}
             className={cn(
               "max-h-[20rem] w-full overflow-y-auto rounded-sm bg-card-foreground px-5 py-3 text-background ring-1 ring-muted-foreground",

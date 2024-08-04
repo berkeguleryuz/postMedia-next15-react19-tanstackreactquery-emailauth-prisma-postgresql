@@ -65,7 +65,7 @@ const UserPage = async ({ params: { username } }: UserPageProps) => {
     <main className="flex w-full min-w-0 gap-5">
       <div className="w-full min-w-0 space-y-5">
         <UserProfile user={user} loggedInUserId={loggedInUser.id} />
-        <div className="rounded-2xl bg-card p-5 shadow-sm">
+        <div className="rounded-2xl bg-card-foreground text-input p-5 shadow-sm">
           <h2 className="text-center text-2xl font-bold">
             {user.displayName}&apos;s Posts
           </h2>

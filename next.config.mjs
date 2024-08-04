@@ -15,6 +15,16 @@ const nextConfig = {
       },
     ],
   },
+
+  // Clodron Arama: Aynı sayfayı birbiriyle bağdağtırma alanı.
+  rewrites: () => {
+    return [
+      {
+        source: "/hashtag/:tag",
+        destination: "/search?q=%23:tag",
+      },
+    ];
+  },
 };
 
 export default nextConfig;
